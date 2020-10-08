@@ -1,0 +1,57 @@
+server:
+  port: 7000
+
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          "[/**]":
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - PATCH
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+      routes:
+        - id: member-service-public
+          uri: http://localhost:8080 # lb://microservice
+          predicates:
+            - Method=POST
+            - Path=/members/token, /members
+          filters:
+            - RewritePath=/members/(?<path>.*),/$\{path}
+
+        - id: member-service
+          uri: http://localhost:8080 # lb://microservice
+          predicates:
+            - Path=/members/**
+          filters:
+            - RewritePath=/members/(?<path>.*),/$\{path}
+            - name: AccessTokenDecoding
+
+        - id: recipe-service
+          uri: http://localhost:8181
+          predicates:
+            - Path=/recipes/**
+          filters:
+            - RewritePath=/recipes/(?<path>.*),/$\{path}
+            - name: AccessTokenDecoding
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
+
+security:
+  jwt:
+    validate-time: 1800
+    key: recipt
+    algorithm: HS256

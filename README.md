@@ -21,4 +21,5 @@ MSA 환경 요리 레시피 웹 서비스 Toy Project MSA cloud 레포지토리 
 ## :cloud: 기술 스택
 
 - [x] :door: Spring Cloud Gateway
+- [x] 🛑 Redis
 - [ ] 주키퍼 등 일단 적용해야 할게 아직 산더미..

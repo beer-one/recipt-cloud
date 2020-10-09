@@ -34,13 +34,16 @@ subprojects {
             }
         }
 
+        val springCloudVersion = "Hoxton.SR8"
+        val jacksonVersion = "2.11.1"
+
         repositories {
             mavenCentral()
         }
 
         dependencyManagement {
             imports {
-                mavenBom("org.springframework.cloud:spring-cloud-dependencies:Greenwich.SR2")
+                mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
             }
         }
 
@@ -58,11 +61,11 @@ subprojects {
             // jwt
             implementation("io.jsonwebtoken:jjwt:0.9.1")
 
-            // jackson
-            implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-            implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
-            implementation("com.fasterxml.jackson.datatype:jackson-datatype-hibernate5")
+            // redis
+            implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
+            // jackson
+            implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
         }
 
         tasks {

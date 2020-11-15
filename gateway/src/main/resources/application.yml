@@ -22,20 +22,20 @@ spring:
               - "*"
       routes:
         - id: member-service-public
-          uri: http://localhost:8080 # lb://microservice
+          uri: http://localhost:9010 # lb://microservice
           predicates:
             - Method=POST
-            - Path=/members/token, /members
+            - Path=/members/token/**, /members
 
         - id: member-service
-          uri: http://localhost:8080 # lb://microservice
+          uri: http://localhost:9010 # lb://microservice
           predicates:
             - Path=/members/**
           filters:
             - name: AccessTokenDecoding
 
         - id: recipe-service
-          uri: http://localhost:8181
+          uri: http://localhost:9020
           predicates:
             - Path=/recipes/**
           filters:
@@ -58,5 +58,5 @@ logging:
 security:
   jwt:
     validate-time: 1800
-    key: recipt
+    key: recipt-access
     algorithm: HS256

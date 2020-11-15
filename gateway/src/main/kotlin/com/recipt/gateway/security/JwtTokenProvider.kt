@@ -22,11 +22,4 @@ class JwtTokenProvider (
         .body
 
     fun isTokenExpired(claims: Claims) = claims.expiration.before(Date())
-
-    fun validateToken(token: String, email: String) {
-        stringRedisTemplate.opsForValue()
-            .get(RedisKeyEnum.TOKEN.getKey(email))
-            ?.takeIf { it == token }
-            ?: throw TokenNotExistException()
-    }
 }

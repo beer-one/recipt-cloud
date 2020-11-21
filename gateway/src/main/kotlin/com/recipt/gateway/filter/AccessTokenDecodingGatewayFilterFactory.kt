@@ -27,6 +27,7 @@ class AccessTokenDecodingGatewayFilterFactory(
 
             val memberInfoString = request.headers[AUTH_TOKEN]?.firstOrNull()?.let { token ->
                 val claims = jwtTokenProvider.getAllClaimsFromToken(token)
+
                 if (jwtTokenProvider.isTokenExpired(claims)) throw TokenExpiredException()
 
                 claims.get(MEMBER_INFO, String::class.java)

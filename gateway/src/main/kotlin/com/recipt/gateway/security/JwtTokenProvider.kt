@@ -1,10 +1,8 @@
 package com.recipt.gateway.security
 
-import com.recipt.gateway.enums.RedisKeyEnum
-import com.recipt.gateway.exception.TokenNotExistException
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
-import org.springframework.data.redis.core.StringRedisTemplate
+import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -13,9 +11,10 @@ import java.util.*
  */
 @Component
 class JwtTokenProvider (
-    private val jwtTokenProperties: JwtTokenProperties,
-    private val stringRedisTemplate: StringRedisTemplate
+    private val jwtTokenProperties: JwtTokenProperties
 ) {
+    private val logger = LoggerFactory.getLogger(javaClass)
+
     fun getAllClaimsFromToken(token: String): Claims = Jwts.parser()
         .setSigningKey(jwtTokenProperties.getSecretKey())
         .parseClaimsJws(token)

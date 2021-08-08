@@ -22,6 +22,7 @@ spring:
               - OPTIONS
             allowedHeaders:
               - "*"
+            allowCredentials: true
       routes:
         - id: member-service-public
           uri: http://localhost:9010 # lb://microservice

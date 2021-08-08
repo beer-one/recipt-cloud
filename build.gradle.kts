@@ -3,7 +3,7 @@ plugins {
     kotlin("plugin.spring") version "1.3.72"
     id("org.springframework.boot") version "2.3.1.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
-    idea
+//idea
 }
 
 group = "com.recipt"
@@ -22,9 +22,7 @@ subprojects {
 
         buildscript {
             repositories {
-                maven {
-                    url = uri("https://repo.spring.io/plugins-snapshot")
-                }
+                maven(url = "https://plugins.gradle.org/m2/")
                 mavenCentral()
             }
             dependencies {
